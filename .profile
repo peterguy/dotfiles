@@ -1,3 +1,16 @@
+put-secret() {
+  local service=${1}
+  local name=${2}
+  local value=${3}
+  security add-generic-password -s "${service}" -a "${name}" -w "${value}"
+}
+
+get-secret() {
+  local service=${1}
+  local name=${2}
+  security find-generic-password -s "${service}" -a "${name}" -w 2>/dev/null
+  return $?
+}
 
 markdown-to-pdf() {
   command -v pandoc >/dev/null || brew install pandoc
